@@ -3,7 +3,14 @@ package guru.springframework.services;
 import guru.springframework.domain.Product;
 import guru.springframework.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
+
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -16,7 +23,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Iterable<Product> listAllProducts() {
-        return productRepository.findAll();
+        Sort sort=new Sort(Sort.Direction.ASC,"description");
+        return productRepository.findAll(sort);
     }
 
     @Override
